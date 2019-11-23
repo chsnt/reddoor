@@ -80,7 +80,7 @@ router.get('/', async function(req, res, next) {
     res.render('index', { 
      /*  title: packageObj.subreddit.display_name , 
       subr: packageObj.subreddit.display_name ,  */
-      title: packageObj.subreddit_loc , 
+      title: `${packageObj.subreddit_loc} – ${packageObj.title}` , 
       subr: packageObj.subreddit_loc , 
       postHeader : packageObj.title,
       postImg : postImg,
