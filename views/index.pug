@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  .content
+    .left-block
+      .post !{postImg}
+        .line 
+        p #{postText}  
+        .line    
+      .post_info
+        
+        .score
+          a 🠵
+          a !{postScore}
+          a 🠷
+        .author
+          span !{postAuthor}
+        .datetime
+          span !{postDatetime}
+
+      .comments !{expand}
+    .right-block
+    
+
+    //- p #{replies}
+    //- ul
+
+    //-for reply in replies
+    //-  li !{reply.body_html}
+      

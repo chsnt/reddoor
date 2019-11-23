@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='shortcut icon', href='/favicon.png', type='image/png')
+  body
+    div.wrapper-header
+      //-div.wrapper-header-top
+      div.head-board      
+        div.head-row 
+          div.sign
+            span 📙 
+          div.namer 
+            span   !{apxub} >
+          div.subr
+            span #{subr}
+      div.head-title
+        hr
+        h1= postHeader
+        hr
+
+    block content
