@@ -11,7 +11,7 @@ router.get('/', async function(req, res, next) {
     // Объявляю здесь т.к. язык м.б. переменным
   moment.locale('ru');
 
-  fs.readJson('../dshpg0.json')
+  fs.readJson('dshpg0.json')
   .then(packageObj => {
     //console.dir(JSON.stringify(packageObj.replies[0].body_html.substr(512).replace(/<\/\s/g, '</'))) // => 0.1.3
     let expand = (replies) => { 
