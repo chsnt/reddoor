@@ -1,8 +1,14 @@
 const express = require('express');
+const minify = require('express-minify');
+const compression = require('compression')
 const fs = require('fs-extra');
 const moment = require('moment')
 const router = express.Router();
 
+const app = express()
+
+app.use(compression());
+app.use(minify());
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
