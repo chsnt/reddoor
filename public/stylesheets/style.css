@@ -158,10 +158,13 @@ body {
 }
 
 .postImg{
+  display: flex;
   width: 95vw;
+  justify-content: center;
 }
 
 .postImg img{
+  justify-content: center;
   max-width: 95%;
   height: auto;
   max-height:95%
@@ -291,5 +294,21 @@ body {
 @media screen and (max-width: 599px) {
   h1 {
       font-size: 25px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .postImg img{
+    max-width: 62%;
+    height: auto;
+    max-height:62%
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .postImg img{
+    max-width: 95%;
+    height: auto;
+    max-height:95%
   }
 }
