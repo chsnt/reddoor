@@ -1,5 +1,6 @@
 const express = require('express');
 const minify = require('express-minify');
+const minifyHTML = require('express-minify-html');
 const compression = require('compression')
 const fs = require('fs-extra');
 const moment = require('moment')
@@ -9,6 +10,18 @@ const app = express()
 
 app.use(compression());
 app.use(minify());
+app.use(minifyHTML({
+  override:      true,
+  exception_url: false,
+  htmlMinifier: {
+      removeComments:            true,
+      collapseWhitespace:        true,
+      collapseBooleanAttributes: true,
+      removeAttributeQuotes:     true,
+      removeEmptyAttributes:     true,
+      minifyJS:                  true
+  }
+}));
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -26,7 +39,9 @@ router.get('/', async function(req, res, next) {
         
         // Отступы комментариев
         if(comment.depth>0){
-          html += `<div id="${comment.id}" style="padding-left: ${40+20*(comment.depth/2)}px;"><hr>
+          realDepth = comment.depth/2
+          //html += `<div id="${comment.id}" style="padding-left: ${40+20*(realDepth)}px;" class="${realDepth%2 === 0 ?"gray":"lightgray" }"><hr>
+          html += `<div id="${comment.id}" style="margin-left: ${40+20*(realDepth)}px;" class="${realDepth%2 === 0 ?"gray":"lightgray" }"><hr>
                   `
         } else {
           html += `<br><div id="${comment.id}"><hr>
@@ -75,7 +90,9 @@ router.get('/', async function(req, res, next) {
       
       if( imgs.indexOf(arr[arr.length-1])>-1 ) postImg = `
         <a href="${packageObj.url}" target="_blank">
-          <img alt="post-image" src="${packageObj.url}" height="700">
+        <div class="postImg">
+          <img alt="post-image" src="${packageObj.url}">
+        </div>
         </a>`
 
     }
