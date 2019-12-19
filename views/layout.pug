@@ -4,6 +4,10 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='shortcut icon', href='/favicon.png', type='image/png')
+    meta(name="viewport",content="width=device-width, initial-scale=1.0")
+    meta(charset="UTF-8")
+    meta(name="viewport",content="width=device-width")
+    //-meta(name="description",content="140 символов")
   body
     div.wrapper-header
       //-div.wrapper-header-top
@@ -14,7 +18,7 @@ html
           div.namer 
             span   !{apxub} >
           div.subr
-            span #{subr}
+            span #{subrEmoji} #{subr}
       div.head-title
         hr
         h1= postHeader

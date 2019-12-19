@@ -3,6 +3,7 @@ const minify = require('express-minify');
 const minifyHTML = require('express-minify-html');
 const compression = require('compression')
 const fs = require('fs-extra');
+const emojiFromText = require("emoji-from-text");
 const moment = require('moment')
 const router = express.Router();
 
@@ -24,13 +25,14 @@ app.use(minifyHTML({
 }));
 
 /* GET home page. */
-router.get('/', async function(req, res, next) {
+router.get('/r/:subreddit/:id', async function(req, res, next) {
 
   // 
     // Объявляю здесь т.к. язык м.б. переменным
   moment.locale('ru');
 
-  fs.readJson('dshpg0.json')
+ // fs.readJson(`../data/boards/${req.params.subreddit}/${req.params.id}.json`)
+  fs.readJson(`./data/boards-ru/${req.params.subreddit}/${req.params.id}.json`)
   .then(packageObj => {
     //console.dir(JSON.stringify(packageObj.replies[0].body_html.substr(512).replace(/<\/\s/g, '</'))) // => 0.1.3
     let expand = (replies) => { 
@@ -105,9 +107,10 @@ router.get('/', async function(req, res, next) {
       subr: packageObj.subreddit.display_name ,  */
       title: `${packageObj.subreddit_loc} – ${packageObj.title}` , 
       subr: packageObj.subreddit_loc , 
+      subrEmoji: emojiFromText(req.params.subreddit, true).match.emoji.char,
       postHeader : packageObj.title,
       postImg : postImg,
-      postText : packageObj.body,
+      postText : packageObj.body? packageObj.body: packageObj.selftext,
 
       postScore: packageObj.ups,
       postAuthor: packageObj.author.name,
