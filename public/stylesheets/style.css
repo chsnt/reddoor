@@ -331,6 +331,8 @@ body {
     height: 100%;
     justify-content: space-between;
     width: 100%;
+    align-items: flex-start;
+    padding: 0 10px;
   }
   .sign, .namer, .subr {
     font-size: 28px;
