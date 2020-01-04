@@ -96,7 +96,7 @@ router.get('/r/:subreddit/:id', async function(req, res, next) {
       if( imgs.indexOf(arr[arr.length-1])>-1 ) postImg = `
         <a href="${packageObj.url}" target="_blank">
         <div class="postImg">
-          <img alt="post-image" src="${packageObj.url}">
+          <img alt="${packageObj.subreddit_loc} – ${packageObj.title}" src="${packageObj.url}">
         </div>
         </a>`
 
