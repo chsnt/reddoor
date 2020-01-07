@@ -94,11 +94,14 @@ router.get('/r/:subreddit/:id', async function(req, res, next) {
       let arr = packageObj.url.split('.')
       
       if( imgs.indexOf(arr[arr.length-1])>-1 ) postImg = `
-        <a href="${packageObj.url}" target="_blank">
+        
         <div class="postImg">
-          <img alt="${packageObj.subreddit_loc} – ${packageObj.title}" src="${packageObj.url}">
-        </div>
-        </a>`
+          <a href="${packageObj.url}" target="_blank">
+            <div>
+            <img alt="${packageObj.subreddit_loc} – ${packageObj.title}" src="${packageObj.url}">
+            </div>
+          </a>
+        </div>`
 
     }
 

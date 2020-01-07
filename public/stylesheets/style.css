@@ -270,8 +270,10 @@ body {
 
 blockquote {
   /*margins*/
-  border-left: 3px solid lightgray;
+  border-left: 4px solid lightgray;
   margin-left: 10px;
+  padding-left: 10px;
+
 }
 
 .similar {
