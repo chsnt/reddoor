@@ -134,9 +134,11 @@ body {
   padding: 20px;
 }
 
+
 .postImg {
   display: flex;
-  width: 64vw; /*make container smaller*/
+  width: 64vw;
+  /*make container smaller*/
   justify-content: center;
 }
 
@@ -209,6 +211,7 @@ body {
 .comment_info, .post_info {
   display: inline-flex;
   padding: 3px;
+  width: 100%;
 }
 
 .post_info {
@@ -236,6 +239,7 @@ body {
 .comment_info .datetime, .post_info .datetime {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.85);
+  margin-left: auto;
 }
 
 .content .md a {
@@ -285,7 +289,6 @@ blockquote {
   /*margins between li*/
   margin-top: 10px;
 }
-
 
 @media screen and (min-width: 700px) {
   h1 {
@@ -337,6 +340,7 @@ blockquote {
   .comments {
     width: 95%;
   }
+ 
 }
 
 @media screen and (max-width: 900px) {
@@ -348,16 +352,8 @@ blockquote {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .namer, .subr {
-    font-size: 2em;
-  }
-  .head-title>h1 {
-    font-size: 24px;
-  }
-}
-
-@media screen and (max-width: 710px) {
+@media screen and (max-width: 1200px) {
+  /*move artivles to bottom at 1200px width*/
   .head-row {
     flex-direction: column;
     height: 100%;
@@ -378,6 +374,18 @@ blockquote {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .namer, .subr {
+    font-size: 2em;
+  }
+  .head-title>h1 {
+    font-size: 24px;
+  }
+  .comment_info .datetime {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .wrapper-header {
     padding: 0 10px;
@@ -395,5 +403,8 @@ blockquote {
   }
   .left-block, .right-block {
     padding: 10px;
+  }
+  .comment_info .datetime {
+    display: none;
   }
 }
