@@ -1,0 +1,41 @@
+extends layoutPost
+
+block content
+  .content
+    .left-block
+      .post !{postImg}
+        p #{postText}  
+      .post_info
+        
+        .score
+          a ⇧
+          a !{postScore}
+          a ⇩
+        .author
+          span !{postAuthor}
+        .datetime
+          span !{postDatetime}
+
+      .comments !{expand}
+    .right-block
+      .top
+        p Рекомендуемые статьи
+        ul.similar
+          li Статья1
+          li Статья2
+          li Статья3
+          li Статья4
+          li Статья5
+          li Статья6
+          li Статья7
+      .down
+  
+
+
+
+    //3p #{replies}
+    //- ul
+
+    //-for reply in replies
+    //-  li !{reply.body_html}
+      
