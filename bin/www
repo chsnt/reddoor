@@ -7,19 +7,39 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
+
+const NODE_ENV = 'prod'
 
 /**
  * Get port from environment and store in Express.
  */
-
-var port = normalizePort(process.env.PORT || '3000');
+// const port = (process.env.NODE_ENV === 'prod')? (process.env.PORT || '80') : '3000';
+let port = (process.env.NODE_ENV === 'prod')? (process.env.PORT || '80') : '3000';
+const postHTTPS = 443
+port = normalizePort(port);
 app.set('port', port);
+
+
 
 /**
  * Create HTTP server.
  */
+let server
+if (process.env.NODE_ENV === 'prod'){
+  const options = {
+    key: fs.readFileSync('keys/private.pem'),
+    cert: fs.readFileSync('keys/cert.pem'),
+    // ca: fs.readFileSync('keys/rootcert.key'),
+    // requestCert: true,
+    // rejectUnauthorized: false,
+  };
+  serverHTTPS = https.createServer(options, app);
+  serverHTTPS.listen(postHTTPS, () => console.log(`Started on port ${postHTTPS}`))
+}
 
-var server = http.createServer(app);
+server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -4,7 +4,7 @@ block content
   .content
     .left-block
       .post !{postImg}
-        p #{postText}  
+        .postText !{postText}  
       .post_info
         
         .score
@@ -13,29 +13,27 @@ block content
           a ⇩
         .author
           span !{postAuthor}
+          .social !{soc}
         .datetime
           span !{postDatetime}
-
       .comments !{expand}
+      .social !{soc}
     .right-block
       .top
         p Рекомендуемые статьи
         ul.similar
-          li Статья1
-          li Статья2
-          li Статья3
-          li Статья4
-          li Статья5
-          li Статья6
-          li Статья7
+          li Статья
+          li Статья
+          li Статья
+          li Статья
+          li Статья
+          li Статья
+          li Статья
       .down
-  
 
 
-
-    //3p #{replies}
-    //- ul
-
-    //-for reply in replies
-    //-  li !{reply.body_html}
-      
+block h
+  div.head-title
+    //hr
+    h1= postHeader
+    //hr

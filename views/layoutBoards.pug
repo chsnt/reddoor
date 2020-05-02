@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/stylesheets/groupStyle.css')
+    link(rel='shortcut icon', href='/favicon.png', type='image/png')
+    <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+    <script src="https://yastatic.net/share2/share.js"></script>
+    meta(name="viewport",content="width=device-width, initial-scale=1.0")
+    meta(charset="UTF-8")
+    meta(name="viewport",content="width=device-width")
+    meta(name="description",content=description)
+    meta(name="keywords",content=keywords)
+  body
+    div.wrapper-header
+      //-div.wrapper-header-top
+      div.head-board      
+        div.head-row 
+          div.wrapper-block
+            div.sign
+              span 📙 
+            div.namer 
+              a(href="/",rel="nofollow")   !{apxub} >
+          div.subr
+            div.emo
+              span #{subrEmoji} 
+            div.board !{subr}
+      block h
+
+    block content
+  footer
+    .footer-border
+      .toggleDarkTheme !{toggleDarkTheme}
+      .email
+        a(href=email) ✉️
