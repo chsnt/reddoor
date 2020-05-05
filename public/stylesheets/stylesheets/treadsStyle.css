@@ -320,6 +320,7 @@ footer {
     margin: 10px;
     display: flex;
     height: 100px;
+    overflow: hidden;
 }
 
 .tread .score {
@@ -337,10 +338,37 @@ footer {
     position: absolute;
     margin-top: 70px;
     right: 120px;
+    padding-right: 5px;
 }
 
 .tread>.tread {
     margin-top: 25px;
+}
+
+.pagination ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.pagination li {
+    border: 1px solid gray;
+    padding: 2px 5px;
+    margin: 2px;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: gray;
+}
+
+.pagination li:hover {
+    background-color: #f68e56;
+}
+
+li.active {
+    background-color: #f68e56;
+    color: white;
 }
 
 @media screen and (max-width: 1200px) {
@@ -358,6 +386,10 @@ footer {
     }
     .right-block {
         margin-left: 7%;
+    }
+    .tread>.tread {
+        font-size: 0.8em;
+        margin-top: 10px;
     }
 }
 
@@ -385,11 +417,21 @@ footer {
     .postImg img {
         max-width: 300px;
     }
+    .tread .date {
+        visibility: hidden;
+    }
+    .tread .score {
+        font-size: 1.5em;
+        margin: auto 10px;
+    }
 }
 
 @media screen and (max-width: 600px) {
     .postImg img {
         max-width: 250px;
+    }
+    .tread>.tread {
+        font-size: 0.7em;
     }
 }
 
