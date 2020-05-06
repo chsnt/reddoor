@@ -12,22 +12,23 @@ html
     meta(name="description",content=description)
     meta(name="keywords",content=keywords)
   body
-    div.wrapper-header
-      //-div.wrapper-header-top
-      div.head-board      
-        div.head-row 
-          div.wrapper-block
-            div.sign
-              span 📙 
-            div.namer 
-              a(href="/",rel="nofollow")   !{apxub} >
-          div.subr
-            div.emo
-              span #{subrEmoji} 
-            div.board !{subr}
-      block h
+    div.wrapper
+      div.wrapper-header
+        //-div.wrapper-header-top
+        div.head-board      
+          div.head-row 
+            div.wrapper-block
+              div.sign
+                span 📙 
+              div.namer 
+                a(href="/",rel="nofollow")   !{apxub} >
+            div.subr
+              div.emo
+                span #{subrEmoji} 
+              div.board !{subr}
+        block h
 
-    block content
+      block content
   footer
     .footer-border
       .toggleDarkTheme !{toggleDarkTheme}
