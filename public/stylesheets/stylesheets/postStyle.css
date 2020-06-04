@@ -291,6 +291,11 @@ a {
     background-color: rgb(245, 245, 245);
 }
 
+.comment_info .score {
+    width: 60px;
+} /*arrows fix*/
+
+
 .score a:hover {
     text-decoration: none;
 }
