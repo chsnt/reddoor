@@ -94,7 +94,9 @@ body {
     display: flex;
 }
 
-.namer:hover, .subr:hover, .head-board a:hover {
+.namer:hover,
+.subr:hover,
+.head-board a:hover {
     color: rgba(255, 255, 255, 0.98);
 }
 
@@ -225,7 +227,8 @@ a {
     border-top: 1px solid rgba(221, 221, 221, 0.85);
 }
 
-.comment_info, .post_info {
+.comment_info,
+.post_info {
     display: inline-flex;
     padding: 3px;
     width: 100%;
@@ -247,7 +250,9 @@ a {
     margin-right: auto;
 }
 
-.comment_info div, .post_info div, .post_info a {
+.comment_info div,
+.post_info div,
+.post_info a {
     padding: 3px;
     /* padding-right: 3px; */
     font-weight: bold;
@@ -259,7 +264,8 @@ a {
     font-weight: bold;
 }
 
-.comment_info .datetime, .post_info .datetime {
+.comment_info .datetime,
+.post_info .datetime {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.85);
     margin-left: auto;
@@ -292,8 +298,10 @@ a {
 }
 
 .comment_info .score {
-    width: 60px;
-} /*arrows fix*/
+    width: 90px;
+}
+
+/*arrows fix*/
 
 
 .score a:hover {
@@ -353,15 +361,20 @@ footer {
     .postImg img {
         margin-left: 35%;
     }
-    .comments, .post {
+
+    .comments,
+    .post {
         width: 90%;
     }
+
     .post_info {
         width: 90%;
     }
+
     .content {
         grid-template-columns: 100%;
     }
+
     .right-block {
         margin-left: 7%;
     }
@@ -371,17 +384,23 @@ footer {
     .head-title h1 {
         width: 90%;
     }
-    .sign, .namer, .subr {
+
+    .sign,
+    .namer,
+    .subr {
         font-size: 2em;
     }
+
     .head-row {
         height: 100%;
         width: 100%;
         align-items: flex-start;
     }
+
     .subr {
         padding: 10px 10px 10px 0;
     }
+
     .board a {
         line-height: 0.9em;
     }
@@ -391,6 +410,7 @@ footer {
     .comment_info .datetime {
         display: none;
     }
+
     .postImg img {
         max-width: 300px;
     }
@@ -400,6 +420,7 @@ footer {
     .postImg img {
         max-width: 250px;
     }
+
     .author {
         display: block;
     }
@@ -409,29 +430,39 @@ footer {
     .wrapper-header {
         padding: 0 10px;
     }
+
     .postImg img {
         max-width: 100%;
     }
+
     .head-title {
         font-size: 12px;
     }
-    .post_info, .comment_info {
+
+    .post_info,
+    .comment_info {
         display: flex;
         flex-direction: column;
         padding-left: 0;
     }
-    .post, .comments {
+
+    .post,
+    .comments {
         padding: 10px;
     }
+
     .left-block {
         padding: 10px;
     }
 }
 
 @media screen and (max-width: 400px) {
-    .sign, .namer {
+
+    .sign,
+    .namer {
         font-size: 1.7em;
     }
+
     .subr {
         font-size: 1.5em;
         padding: 0 5px 0 0;
