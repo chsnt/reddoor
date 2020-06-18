@@ -296,10 +296,10 @@ a {
     width: 100px;
 }
 
-.post_info .score a {
+/* .post_info .score a {
     min-width: 160px;
 }
-
+ */
 /*arrows fix*/
 
 .score a:hover {
