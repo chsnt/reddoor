@@ -69,7 +69,7 @@ body {
   box-shadow: -2px 8px 8px -2px rgba(0, 0, 0, 0.2) inset;
   -webkit-box-shadow: -2px 8px 8px -2px rgba(0, 0, 0, 0.2) inset;
   display: grid;
-  grid-template-columns: 70% 20%;
+  grid-template-columns: 70% 15%;
   justify-content: flex-end;
 }
 
@@ -435,12 +435,12 @@ body h1 {
       margin: 20px auto;
     }
   }
-  @media screen and (max-width: 455px) {
+  @media screen and (max-width: 400px) {
     .postImg img {
       max-width: 100%;
     }
     .wrapper-header {
-      padding: 0 10px;
+      padding: 10px;
     }
     .head-title {
       font-size: 20px;
