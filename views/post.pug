@@ -8,15 +8,19 @@ block content
       .post_info
         
         .score
-          a ⇧
+          a(id="scoreUp") ⇧ 
           a !{postScore}
-          a ⇩
+          a(id="scoreDown") ⇩
         .author
           span !{postAuthor}
           .social !{soc}
         .datetime
           span !{postDatetime}
-      .comments !{expand}
+      .comments(id="commentsBlock") !{expand}
+      form.posting
+        textarea.userMessage(placeholder=" Ваш комментарий" rows="8" id="userMessage")
+        input.userName(placeholder=" Ваше имя" type="text" id="userName")
+        input.sendMessage(type = "submit" onclick="sendPost(); reset(); return false")   
       .social !{soc}
     .right-block
       .top

@@ -33,6 +33,9 @@ body {
     display: flex;
 }
 
+li {
+    margin: 15px 0;
+}
 /* .head-title{
   background-color: rgb(131, 72, 41);
 } */
@@ -76,7 +79,7 @@ body {
     box-shadow: -2px 8px 8px -2px rgba(0, 0, 0, 0.2) inset;
     -webkit-box-shadow: -2px 8px 8px -2px rgba(0, 0, 0, 0.2) inset;
     display: grid;
-    grid-template-columns: 70% 20%;
+    grid-template-columns: 70% 15%;
     justify-content: flex-end;
 }
 
@@ -226,7 +229,7 @@ a {
 }
 
 .comment_info, .post_info {
-    display: inline-flex;
+    display: flex;
     padding: 3px;
     width: 100%;
 }
@@ -278,9 +281,7 @@ a {
 
 .content a:hover {
     color: rgba(255, 96, 26, 0.85);
-    /* Цвет ссылки при наведении на нее курсора мыши */
     text-decoration: underline;
-    /* Добавляем подчеркивание */
 }
 
 .line {
@@ -291,10 +292,15 @@ a {
     background-color: rgb(245, 245, 245);
 }
 
-.comment_info .score {
-    width: 60px;
-} /*arrows fix*/
+.score {
+    width: 100px;
+}
 
+/* .post_info .score a {
+    min-width: 160px;
+}
+ */
+/*arrows fix*/
 
 .score a:hover {
     text-decoration: none;
@@ -338,7 +344,7 @@ footer {
 
 .author {
     display: flex;
-    width: 95%;
+    width: 70%;
 }
 
 .author .social {
@@ -349,11 +355,31 @@ footer {
     text-decoration: none;
 }
 
+.posting {
+    margin-top: 10px;
+    width: 75%;
+}
+
+.userMessage {
+    width: 100%;
+}
+
+.userName {
+    height: 30px;
+    width: 100px;
+    margin-left: calc(50% - 100px);
+}
+
+.sendMessage {
+    height: 30px;
+    width: 100px;
+}
+
 @media screen and (max-width: 1200px) {
     .postImg img {
         margin-left: 35%;
     }
-    .comments, .post {
+    .comments, .post, .posting {
         width: 90%;
     }
     .post_info {
@@ -407,7 +433,7 @@ footer {
 
 @media screen and (max-width: 500px) {
     .wrapper-header {
-        padding: 0 10px;
+        padding: 10px;
     }
     .postImg img {
         max-width: 100%;
