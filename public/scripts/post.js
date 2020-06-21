@@ -24,7 +24,7 @@ function sendPost() {
         Ответить
     </button>
     <div class="comment_info">
-        <div class="score">            
+        <div class="score">
           <a class="scoreUp" onclick="scoreUp(this);" rel="nofollow" >⇧</a> <a class="dispScore" rel="nofollow">0</a> <a class="scoreDown" onclick="scoreDown(this);" rel="nofollow" >⇩</a>            
         </div>
         <div class="author">
