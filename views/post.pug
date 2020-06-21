@@ -5,21 +5,24 @@ block content
     .left-block
       .post !{postImg}
         .postText !{postText}  
+        .answer
+          a(href="#bottom") Ответить
       .post_info
         
         .score
-          a(id="scoreUp") ⇧ 
-          a !{postScore}
-          a(id="scoreDown") ⇩
+          a.scoreUp(onclick="scoreUp(this);") ⇧
+          a.dispScore !{postScore}
+          a.scoreDown(onclick="scoreDown(this);") ⇩
         .author
-          span !{postAuthor}
-          .social !{soc}
+          span !{postAuthor}          
         .datetime
           span !{postDatetime}
+      .social !{soc}
       .comments(id="commentsBlock") !{expand}
       form.posting
-        textarea.userMessage(placeholder=" Ваш комментарий" rows="8" id="userMessage")
-        input.userName(placeholder=" Ваше имя" type="text" id="userName")
+        a(name="bottom")
+        textarea.userMessage(placeholder=" Ваш комментарий" rows="8")
+        input.userName(placeholder=" Ваше имя" type="text")
         input.sendMessage(type = "submit" onclick="sendPost(); reset(); return false")   
       .social !{soc}
     .right-block

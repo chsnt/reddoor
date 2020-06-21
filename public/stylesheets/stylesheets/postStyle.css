@@ -36,13 +36,9 @@ body {
 li {
     margin: 15px 0;
 }
-/* .head-title{
-  background-color: rgb(131, 72, 41);
-} */
 
 .head-board a {
     text-decoration: none;
-    /* Убирает подчеркивание для ссылок */
     color: rgba(255, 255, 255, 0.85);
 }
 
@@ -87,7 +83,6 @@ li {
     font-size: 2em;
     color: white;
     margin-left: 20px;
-    /* margins */
 }
 
 .namer {
@@ -115,21 +110,17 @@ li {
     color: rgba(255, 255, 255, 0.85);
     text-align: left;
     display: flex;
-    /* flex added*/
-    /* float: left; */
     font-size: 2.36em;
     /* font-weight: bold; */
 }
 
 .emo {
-    /* margins & icons */
     margin: 10px 0;
     margin-left: 20px;
     min-width: 55px;
 }
 
 .board {
-    /* margins */
     margin: 10px 0;
 }
 
@@ -145,14 +136,11 @@ li {
 
 .postImg {
     display: flex;
-    width: 46vw;
-    /*make container smaller*/
     justify-content: center;
 }
 
 .postImg img {
-    justify-content: center;
-    max-width: 400px;
+    max-width: 95%;
 }
 
 .postText ul {
@@ -171,7 +159,6 @@ li {
 }
 
 .right-block {
-    /*margins & style*/
     margin-right: 55px;
     margin-top: 10px;
     padding-left: 5px;
@@ -200,7 +187,6 @@ a {
 .comments {
     width: 75%;
     padding: 40px;
-    /* background: rgb(245, 245, 245); */
     border-color: rgba(245, 245, 245, 0.85);
     border: 1px solid rgba(221, 221, 221, 0.85);
     border-radius: 5px;
@@ -215,8 +201,7 @@ a {
 }
 
 .gray {
-    background: rgb(248, 248, 248);
-    background: rgb(250, 250, 250);
+    background: rgb(241, 241, 241);
     padding-left: 20px;
     padding-right: 10px;
     border-radius: 5px;
@@ -226,6 +211,10 @@ a {
     margin-top: 1rem;
     border: 0;
     border-top: 1px solid rgba(221, 221, 221, 0.85);
+}
+
+.comments h1 {
+    line-height: 1em;
 }
 
 .comment_info, .post_info {
@@ -293,33 +282,28 @@ a {
 }
 
 .score {
-    width: 100px;
+    width: 120px;
 }
 
-/* .post_info .score a {
-    min-width: 160px;
+.score a {
+    cursor: pointer;
 }
- */
-/*arrows fix*/
 
 .score a:hover {
     text-decoration: none;
 }
 
 blockquote {
-    /*margins*/
     border-left: 4px solid lightgray;
     margin-left: 10px;
     padding-left: 10px;
 }
 
 .similar {
-    /*gray line*/
     border-left: 3px solid lightgray;
 }
 
 .similar li {
-    /*margins between li*/
     margin-top: 10px;
 }
 
@@ -344,7 +328,7 @@ footer {
 
 .author {
     display: flex;
-    width: 70%;
+    width: 50%;
 }
 
 .author .social {
@@ -375,15 +359,76 @@ footer {
     width: 100px;
 }
 
+.answer {
+    width: 100px;
+    height: 35px;
+    border: 2px solid #f68e56;
+    border-radius: 5px;
+    float: right;
+    padding: 7px;
+    margin-top: 5px;
+}
+
+.answer:hover {
+    background-color: rgba(255, 96, 26, 0.3);
+}
+
+.answer a, .answer a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.lightgray .answer, .lightgray .datetime, .gray .answer, .gray .datetime {
+    margin-right: -10px;
+}
+
+.lightgray {
+    margin-left: 10% im;
+}
+
+.gray {
+    margin-left: 20%;
+}
+
+pre, code {
+    white-space: pre-wrap;
+}
+
+iframe {
+    display: block;
+    margin: 0 auto;
+}
+
+.dark-theme {
+    color: #f2f2f2;
+    background-color: #17161a;
+}
+
+.arrow {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    bottom: 75px;
+    right: 4%;
+    font-size: 30px;
+}
+
+.arrow a, .arrow a:hover {
+    text-decoration: none;
+}
+
+.blockedUp .scoreUp, .blockedUp .dispScore, .blockedDown .scoreDown, .blockedDown .dispScore {
+    color: #f68e56;
+    pointer-events: none;
+}
+
+.blockedUp .scoreDown, .blockedDown .scoreUp {
+    pointer-events: none;
+}
+
 @media screen and (max-width: 1200px) {
-    .postImg img {
-        margin-left: 35%;
-    }
-    .comments, .post, .posting {
-        width: 90%;
-    }
-    .post_info {
-        width: 90%;
+    .comments, .post, .posting, .post_info {
+        width: 70%;
     }
     .content {
         grid-template-columns: 100%;
@@ -394,6 +439,9 @@ footer {
 }
 
 @media screen and (max-width: 1000px) {
+    .comments, .post, .posting, .post_info {
+        width: 80%;
+    }
     .head-title h1 {
         width: 90%;
     }
@@ -411,32 +459,38 @@ footer {
     .board a {
         line-height: 0.9em;
     }
+    iframe {
+        width: 500;
+        height: 310;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .comment_info .datetime {
         display: none;
     }
-    .postImg img {
-        max-width: 300px;
+    .comments, .post, .posting, .post_info {
+        width: 90%;
+    }
+    iframe {
+        width: 400;
+        height: 246
     }
 }
 
 @media screen and (max-width: 600px) {
-    .postImg img {
-        max-width: 250px;
-    }
     .author {
         display: block;
+    }
+    iframe {
+        width: 300;
+        height: 185;
     }
 }
 
 @media screen and (max-width: 500px) {
     .wrapper-header {
         padding: 10px;
-    }
-    .postImg img {
-        max-width: 100%;
     }
     .head-title {
         font-size: 12px;
@@ -452,6 +506,10 @@ footer {
     .left-block {
         padding: 10px;
     }
+    .arrow {
+        font-size: 20px;
+        right: 2%;
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -461,5 +519,9 @@ footer {
     .subr {
         font-size: 1.5em;
         padding: 0 5px 0 0;
+    }
+    iframe {
+        width: 240;
+        height: 170;
     }
 }
