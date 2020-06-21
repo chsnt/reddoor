@@ -20,9 +20,9 @@ function sendPost() {
     let newComment = document.createElement('div');
 
     newComment.innerHTML = `<p>${message.replace(/(<([^>]+)>)/ig, "")}</p>
-    <div class="answer">
-        <a href="#bottom">Ответить</a>
-    </div>
+    <button class="answer" onclick="goDown();">
+        Ответить
+    </button>
     <div class="comment_info">
         <div class="score">            
           <a class="scoreUp" onclick="scoreUp(this);" rel="nofollow" >⇧</a> <a class="dispScore" rel="nofollow">0</a> <a class="scoreDown" onclick="scoreDown(this);" rel="nofollow" >⇩</a>            
@@ -49,4 +49,12 @@ function scoreDown(post) {
     let number = parseInt(score.innerHTML) - 1;
     score.innerHTML = number;
     score.parentElement.classList.add("blockedDown");
+}
+
+function goDown() {
+    document.querySelector('.userMessage').focus();
+}
+
+function goUp() {
+    document.querySelector('.wrapper-header').scrollIntoView();
 }

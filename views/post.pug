@@ -5,8 +5,7 @@ block content
     .left-block
       .post !{postImg}
         .postText !{postText}  
-        .answer
-          a(href="#bottom") Ответить
+        button.answer(onclick="goDown();") Ответить
       .post_info
         
         .score
@@ -20,7 +19,6 @@ block content
       .social !{soc}
       .comments(id="commentsBlock") !{expand}
       form.posting
-        a(name="bottom")
         textarea.userMessage(placeholder=" Ваш комментарий" rows="8")
         input.userName(placeholder=" Ваше имя" type="text")
         input.sendMessage(type = "submit" onclick="sendPost(); reset(); return false")   

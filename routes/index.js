@@ -386,9 +386,9 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
           utcString = date.toUTCString();
 
           html += `${comment.body_html}
-                  <div class="answer">
-                    <a href="#bottom">Ответить</a>
-                  </div>
+                  <button class="answer" onclick="goDown();">
+                    Ответить
+                  </button>
                   <div class="comment_info"> 
                     <div class="score">
                      <a class="scoreUp" onclick="scoreUp(this);">⇧</a> <a class="dispScore"> ${comment.ups} </a> <a class="scoreDown" onclick="scoreDown(this);">⇩</a>

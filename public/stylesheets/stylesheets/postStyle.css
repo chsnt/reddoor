@@ -285,7 +285,7 @@ a {
     width: 120px;
 }
 
-.score a {
+.score a, .answer, .sendMessage, .arrow, .onoffswitch-checkbox, .email {
     cursor: pointer;
 }
 
@@ -360,22 +360,17 @@ footer {
 }
 
 .answer {
-    width: 100px;
-    height: 35px;
+    width: 80px;
+    height: 30px;
     border: 2px solid #f68e56;
     border-radius: 5px;
     float: right;
-    padding: 7px;
+    padding: 5px;
     margin-top: 5px;
 }
 
 .answer:hover {
     background-color: rgba(255, 96, 26, 0.3);
-}
-
-.answer a, .answer a:hover {
-    color: black;
-    text-decoration: none;
 }
 
 .lightgray .answer, .lightgray .datetime, .gray .answer, .gray .datetime {
@@ -406,15 +401,9 @@ iframe {
 
 .arrow {
     position: fixed;
-    width: 20px;
-    height: 20px;
     bottom: 75px;
-    right: 4%;
+    right: 5%;
     font-size: 30px;
-}
-
-.arrow a, .arrow a:hover {
-    text-decoration: none;
 }
 
 .blockedUp .scoreUp, .blockedUp .dispScore, .blockedDown .scoreDown, .blockedDown .dispScore {
@@ -463,6 +452,9 @@ iframe {
         width: 500;
         height: 310;
     }
+    .arrow {
+        right: 0.5%;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -508,7 +500,6 @@ iframe {
     }
     .arrow {
         font-size: 20px;
-        right: 2%;
     }
 }
 
