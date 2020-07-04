@@ -12,7 +12,7 @@ html
     meta(name="viewport",content="width=device-width")
     meta(name="description",content=description)
     meta(name="keywords",content=keywords)
-  body
+  body    
     div.wrapper
       div.wrapper-header
         //-div.wrapper-header-top
@@ -30,6 +30,7 @@ html
         block h
 
       block content
+      .arrow(onclick="goUp();") ⬆️
   footer
     .footer-border
       .toggleDarkTheme !{toggleDarkTheme}
