@@ -1,4 +1,5 @@
 /node_modules
 /keys
+/data
 .env
 ws.code-workspace
