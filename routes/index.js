@@ -27,8 +27,8 @@ markdowner.setOption('headerLevelStart', 3);
 
 const app = express();
 
-const catalogWOG = fse.readJSONSync('./data/catalog/catalogWOG.json')
-const catalogIndex = fse.readJSONSync('./data/catalog/index.json')
+const catalogWOG = fse.readJSONSync('../data/catalog/catalogWOG.json')
+const catalogIndex = fse.readJSONSync('../data/catalog/index.json')
 
 const getEmoji = (text) => emojiFromText(text, true).match.emoji.char
 
@@ -39,9 +39,13 @@ const apxub = '<u> APXUB </u>'
 const email = 'mail@apxub.com'
 const yandexBar = `<div class="ya-share2" data-services="collections,vkontakte,facebook,odnoklassniki,moimir,whatsapp,telegram" data-limit="3"></div>`
 const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
+<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onchange="toggleDarkTheme();">
+<label class="onoffswitch-label" for="myonoffswitch">Ночной режим</label>
+</div>`
+/* const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
 <label class="onoffswitch-label" for="myonoffswitch" onclick="if (!window.__cfRLUnblockHandlers) return false; toggleDarkTheme();"></label>
-</div>`
+</div>` */
 
 
 app.use(helmet())
@@ -154,9 +158,9 @@ router.get("/r/:subreddit", async function (req, res, next) {
   const limit = 10
   let subreddit = req.params.subreddit
   console.log(catalogIndex[subreddit])
-  const lastPage = (catalogIndex[subreddit]!== undefined)? 
-        (catalogIndex[subreddit].length < limit)? catalogIndex[subreddit].length : Math.floor(catalogIndex[subreddit].length / limit) 
-        : 0
+  const lastPage = (catalogIndex[subreddit] !== undefined) ?
+    (catalogIndex[subreddit].length < limit) ? catalogIndex[subreddit].length : Math.floor(catalogIndex[subreddit].length / limit)
+    : 0
 
   // catalog
   const catalogWOG = require('../data/catalog/catalogWOG')
@@ -199,7 +203,7 @@ router.get("/r/:subreddit", async function (req, res, next) {
                                       <a href="/r/${subreddit}?page=1">1
                                       </a>
                                     </li>
-                              <li class="active">2</li>`                                    
+                              <li class="active">2</li>`
     if (page === 1) {
       str += `<li class="active">1</li>
                     `
@@ -254,7 +258,7 @@ router.get("/r/:subreddit", async function (req, res, next) {
                     </li>                    
                     `
       str += `<li class="previous">
-                      <a href="/r/${subreddit}?page=${page-1}">${page-1}
+                      <a href="/r/${subreddit}?page=${page - 1}">${page - 1}
                       </a>
                     </li>
                     `
@@ -273,7 +277,7 @@ router.get("/r/:subreddit", async function (req, res, next) {
                     </li>                    
                     `
       str += `<li class="previous">
-                      <a href="/r/${subreddit}?page=${page-1}">${page-1}
+                      <a href="/r/${subreddit}?page=${page - 1}">${page - 1}
                       </a>
                     </li>
                     `
@@ -298,14 +302,14 @@ router.get("/r/:subreddit", async function (req, res, next) {
                     `
 
       str += `<li class="previous">
-                      <a href="/r/${subreddit}?page=${page-1}">${page-1}
+                      <a href="/r/${subreddit}?page=${page - 1}">${page - 1}
                       </a>
                     </li>
                     `
       str += `<li class="active">${page}</li>
                    `
       str += `<li class="next">
-                      <a href="/r/${subreddit}?page=${page+1}">${page+1}
+                      <a href="/r/${subreddit}?page=${page + 1}">${page + 1}
                       </a>
                     </li>
                    `
@@ -327,7 +331,7 @@ router.get("/r/:subreddit", async function (req, res, next) {
     title: subredditName.ru + ' | APXUB',
     subr: `<a href="/r/${subreddit}">${subredditName.ru}</a>`,
     subrEmoji: emojiFromText(subreddit, true).match.emoji.char,
-    treads: (lastPage !== 0)? treadsToHTML(catalogIndex[subreddit], page, limit):'',
+    treads: (lastPage !== 0) ? treadsToHTML(catalogIndex[subreddit], page, limit) : '',
     apxub: apxub,
     email: 'mailto:' + email,
     pages: paginator(page, lastPage)
@@ -353,7 +357,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
   //
   // Объявляю здесь т.к. язык м.б. переменным
 
-  fse.readJson(`./data/boards-ru/${req.params.subreddit}/${req.params.id}.json`)
+  fse.readJson(`../data/boards-ru/${req.params.subreddit}/${req.params.id}.json`)
     // fs.readJson(`./data/boards-ru/${req.params.subreddit}/${req.params.id}.json`)
     .then(packageObj => {
       //console.dir(JSON.stringify(packageObj.replies[0].body_html.substr(512).replace(/<\/\s/g, '</'))) // => 0.1.3
@@ -367,7 +371,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
             html += `<div id="${comment.id}" style="margin-left: ${40 +
               20 * realDepth}px;" class="${
               realDepth % 2 === 0 ? "gray" : "lightgray"
-            }"><hr>
+              }"><hr>
                   `;
           } else {
             html += `<br><div id="${comment.id}"><hr>
@@ -382,9 +386,12 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
           utcString = date.toUTCString();
 
           html += `${comment.body_html}
+                  <button class="answer" onclick="goDown();">
+                    Ответить
+                  </button>
                   <div class="comment_info"> 
                     <div class="score">
-                     <a>⇧</a> <a> ${comment.ups} </a> <a>⇩</a>
+                     <a class="scoreUp" onclick="scoreUp(this);">⇧</a> <a class="dispScore"> ${comment.ups} </a> <a class="scoreDown" onclick="scoreDown(this);">⇩</a>
                     </div>
                     <div class="author">
                       <span> ${comment.author} </span>
@@ -392,7 +399,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
                     <div class="datetime">
                       <span> ${moment(utcString).format("lll")} </span>
                     </div>
-                  </div>
+                  </div>                  
                 </div>`;
 
           if (comment.replies) {
@@ -432,32 +439,32 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
 
       let subr_lang = (packageObj.subreddit_lang) ? packageObj.subreddit_lang : catalogWOG.find(s => s.en === packageObj.subreddit.display_name).ru
       let comments = (packageObj.replies) ? "<h2>Обсуждение</h2>" + expand(packageObj.replies) : ""
-      comments = comments.replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string)=>[p1,` rel="nofollow" `,p2, p3, p4].join(''))
-      
+      comments = comments.replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string) => [p1, ` rel="nofollow" `, p2, p3, p4].join(''))
+
 
       // console.log(packageObj.selftext.replace(/\[(.{2,128})\]\s\((.*)\)/, (...g) => `[${g[1]}] (${()=>g[2].replace(/\s+/g, '')})`))
       console.log(packageObj.selftext.match(/\[(.{2,128})\]\s\((.*)\)/g))
       let postText = packageObj.body ? `<p>${packageObj.body}</p>` :
         markdowner.makeHtml(
           packageObj.selftext
-          .replace('\n', '  ')
-          .replace(/\*\*\s/g, '**')
-          .replace(/\s\*\*/g, '**')
-          //.replace(/\*\s/g, '*')
-          //.replace(/\s\*/g, '*')
-          .replace(/__\s/g, '__')
-          .replace(/\s__/g, '__')
-          .replace(/\[(.{2,128})\]\s\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
-          .replace(/\[(.{2,128})\]\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
+            .replace('\n', '  ')
+            .replace(/\*\*\s/g, '**')
+            .replace(/\s\*\*/g, '**')
+            //.replace(/\*\s/g, '*')
+            //.replace(/\s\*/g, '*')
+            .replace(/__\s/g, '__')
+            .replace(/\s__/g, '__')
+            .replace(/\[(.{2,128})\]\s\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
+            .replace(/\[(.{2,128})\]\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
         )
-        .replace(/&nbsp;/g, '  ')
-        .replace(/\&amp\;\s\#\sX200B\;/g, '  ')
-        .replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string)=>[p1,` rel="nofollow" `,p2, p3, p4].join(''))
+          .replace(/&nbsp;/g, '  ')
+          .replace(/\&amp\;\s\#\sX200B\;/g, '  ')
+          .replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string) => [p1, ` rel="nofollow" `, p2, p3, p4].join(''))
 
       res.render("post", {
         /*  title: packageObj.subreddit.display_name , 
       subr: packageObj.subreddit.display_name ,  */
-        title: `${subr_lang} – ${packageObj.title.substr(0, 65-subr_lang.length)} 💡`,
+        title: `${subr_lang} – ${packageObj.title.substr(0, 65 - subr_lang.length)} 💡`,
         keywords: `${subr_lang}, идея, контент, материал, для, написания, статья, журнал, журналистика, газета, дзен, блог`,
         subr: `<a href="/r/${packageObj.subreddit.display_name}">${subr_lang}</a>`,
         subrEmoji: emojiFromText(req.params.subreddit, true).match.emoji.char,
