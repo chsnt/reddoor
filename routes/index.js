@@ -1,3 +1,4 @@
+// prod
 let catalog = require('../data/catalog/catalog')
 
 const express = require("express");
@@ -30,7 +31,7 @@ const app = express();
 const catalogWOG = fse.readJSONSync('../data/catalog/catalogWOG.json')
 const catalogIndex = fse.readJSONSync('../data/catalog/index.json')
 
-const getEmoji = (text) => emojiFromText(text, true).match.emoji.char
+const getEmoji = (text) => emojiFromText(text, true).match.toString()
 
 const slogan = "Источник идей, материалов, контента для статей"
 const mainHeader = "Материал для статей Вашего блога"
@@ -330,7 +331,7 @@ router.get("/r/:subreddit", async function (req, res, next) {
   res.render("treads", {
     title: subredditName.ru + ' | APXUB',
     subr: `<a href="/r/${subreddit}">${subredditName.ru}</a>`,
-    subrEmoji: emojiFromText(subreddit, true).match.emoji.char,
+    subrEmoji: emojiFromText(subreddit, true).match.toString(),
     treads: (lastPage !== 0) ? treadsToHTML(catalogIndex[subreddit], page, limit) : '',
     apxub: apxub,
     email: 'mailto:' + email,
@@ -467,7 +468,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
         title: `${subr_lang} – ${packageObj.title.substr(0, 65 - subr_lang.length)} 💡`,
         keywords: `${subr_lang}, идея, контент, материал, для, написания, статья, журнал, журналистика, газета, дзен, блог`,
         subr: `<a href="/r/${packageObj.subreddit.display_name}">${subr_lang}</a>`,
-        subrEmoji: emojiFromText(req.params.subreddit, true).match.emoji.char,
+        subrEmoji: emojiFromText(req.params.subreddit, true).match.toString(),
         postHeader: packageObj.title,
         description: packageObj.title + " " + slogan,
         postImg: postImg,
