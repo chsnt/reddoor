@@ -1,0 +1,39 @@
+extends layoutPost
+
+block content
+  .content
+    .left-block
+      .post !{postImg}
+        .postText !{postText}  
+      .post_info
+        
+        .score
+          a ⇧
+          a !{postScore}
+          a ⇩
+        .author
+          span !{postAuthor}
+          .social !{soc}
+        .datetime
+          span !{postDatetime}
+      .comments !{expand}
+      .social !{soc}
+    .right-block
+      .top
+        p Рекомендуемые статьи
+        ul.similar
+          li Статья
+          li Статья
+          li Статья
+          li Статья
+          li Статья
+          li Статья
+          li Статья
+      .down
+
+
+block h
+  div.head-title
+    //hr
+    h1= postHeader
+    //hr
