@@ -27,8 +27,8 @@ markdowner.setOption('headerLevelStart', 3);
 
 const app = express();
 
-const catalogWOG = fse.readJSONSync('../data/catalog/catalogWOG.json')
-const catalogIndex = fse.readJSONSync('../data/catalog/index.json')
+const catalogWOG = fse.readJSONSync('./data/catalog/catalogWOG.json')
+const catalogIndex = fse.readJSONSync('./data/catalog/index.json')
 
 const getEmoji = (text) => emojiFromText(text, true).match.toString()
 
