@@ -13,22 +13,22 @@
 
 const fs = require('fs')
 const fse = require('fs-extra')
-const dir = '../data/boards-ru'
-const catalog = require('../data/catalog/catalog')
+const dir = './data/boards-ru'
+const catalog = require('./data/catalog/catalog')
 
 // module.exports = () => {
 let sitemap = []
 
 // Сдесь промежуточные 
 // /catalog/Health
-// catalog.forEach(group => {
-//     sitemap.push({
-//         url: `https://apxub.com/catalog/${group.name.en}`
-//     })
-//     group.list.forEach(board => sitemap.push({
-//         url: `https://apxub.com/r/${board.en}`
-//     }))
-// })
+catalog.forEach(group => {
+    sitemap.push({
+        url: `https://apxub.com/catalog/${group.name.en}`
+    })
+    group.list.forEach(board => sitemap.push({
+        url: `https://apxub.com/r/${board.en}`
+    }))
+})
 // /r/AdvancedFitness
 
 fs.readdir(dir, (err, directories) => {
@@ -42,6 +42,7 @@ fs.readdir(dir, (err, directories) => {
 
     // console.log(directories)
     for (let directory of directories) {
+
 
         fs.readdir(`${dir}/${directory}`, (err, files) => {
             if (err) {
@@ -60,11 +61,10 @@ fs.readdir(dir, (err, directories) => {
                     let url = {
                         url: `https://apxub.com/r/${directory}/${file.split('.')[0]}`,
                         lastMod: lastMod,
-                        changeFreq: 'monthly',
-                        
+                        changeFreq: 'monthly'
                     }
                     sitemap.push(url)
-                    fse.writeJSONSync('../sitemap.json', sitemap)
+                    fse.writeJSONSync('sitemap.json', sitemap)
                 })
 
 

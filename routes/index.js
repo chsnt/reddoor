@@ -13,8 +13,8 @@ const helmet = require('helmet')
 
 const router = express.Router();
 
-
-moment.locale("ru");
+const lang = 'ru'
+moment.locale(lang);
 
 const showdown = require('showdown'),
 markdowner = new showdown.Converter()
@@ -27,10 +27,10 @@ markdowner.setOption('headerLevelStart', 3);
 
 const app = express();
 
-const catalogWOG = fse.readJSONSync('../data/catalog/catalogWOG.json')
-const catalogIndex = fse.readJSONSync('../data/catalog/index.json')
+const catalogWOG = fse.readJSONSync('./data/catalog/catalogWOG.json')
+const catalogIndex = fse.readJSONSync('./data/catalog/index.json')
 
-const getEmoji = (text) => emojiFromText(text, true).match.emoji.char
+const getEmoji = (text) => emojiFromText(text, true).match.emoji["char"]
 
 const slogan = "Источник идей, материалов, контента для статей"
 const mainHeader = "Материал для статей Вашего блога"
@@ -39,13 +39,14 @@ const apxub = '<u> APXUB </u>'
 const email = 'mail@apxub.com'
 const yandexBar = `<div class="ya-share2" data-services="collections,vkontakte,facebook,odnoklassniki,moimir,whatsapp,telegram" data-limit="3"></div>`
 const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
+<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+    <label class="onoffswitch-label" for="myonoffswitch" onclick="if (!window.__cfRLUnblockHandlers) return false; toggleDarkTheme();"></label>
+    </div>`
+/* const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onchange="toggleDarkTheme();">
 <label class="onoffswitch-label" for="myonoffswitch">Ночной режим</label>
-</div>`
-/* const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
-<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
-<label class="onoffswitch-label" for="myonoffswitch" onclick="if (!window.__cfRLUnblockHandlers) return false; toggleDarkTheme();"></label>
 </div>` */
+
 
 
 app.use(helmet())
@@ -159,8 +160,7 @@ router.get("/r/:subreddit", async function (req, res, next) {
   let subreddit = req.params.subreddit
   console.log(catalogIndex[subreddit])
   const lastPage = (catalogIndex[subreddit] !== undefined) ?
-    (catalogIndex[subreddit].length < limit) ? catalogIndex[subreddit].length : Math.floor(catalogIndex[subreddit].length / limit)
-    : 0
+    (catalogIndex[subreddit].length < limit) ? catalogIndex[subreddit].length : Math.floor(catalogIndex[subreddit].length / limit) : 0
 
   // catalog
   const catalogWOG = require('../data/catalog/catalogWOG')
@@ -330,7 +330,7 @@ router.get("/r/:subreddit", async function (req, res, next) {
   res.render("treads", {
     title: subredditName.ru + ' | APXUB',
     subr: `<a href="/r/${subreddit}">${subredditName.ru}</a>`,
-    subrEmoji: emojiFromText(subreddit, true).match.emoji.char,
+    subrEmoji: getEmoji(subreddit),
     treads: (lastPage !== 0) ? treadsToHTML(catalogIndex[subreddit], page, limit) : '',
     apxub: apxub,
     email: 'mailto:' + email,
@@ -371,7 +371,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
             html += `<div id="${comment.id}" style="margin-left: ${40 +
               20 * realDepth}px;" class="${
               realDepth % 2 === 0 ? "gray" : "lightgray"
-              }"><hr>
+            }"><hr>
                   `;
           } else {
             html += `<br><div id="${comment.id}"><hr>
@@ -385,13 +385,14 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
           ); /*  dateObj = new Date(comment.created_utc * 1000);  */
           utcString = date.toUTCString();
 
-          html += `${comment.body_html}
-                  <button class="answer" onclick="goDown();">
-                    Ответить
-                  </button>
+          let commentToHtml = (comment.body_html !== undefined) ?
+            comment.body_html :
+            mdToHtml(comment.body)
+
+          html += `${commentToHtml}
                   <div class="comment_info"> 
                     <div class="score">
-                     <a class="scoreUp" onclick="scoreUp(this);">⇧</a> <a class="dispScore"> ${comment.ups} </a> <a class="scoreDown" onclick="scoreDown(this);">⇩</a>
+                     <a>⇧</a> <a> ${comment.ups} </a> <a>⇩</a>
                     </div>
                     <div class="author">
                       <span> ${comment.author} </span>
@@ -399,7 +400,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
                     <div class="datetime">
                       <span> ${moment(utcString).format("lll")} </span>
                     </div>
-                  </div>                  
+                  </div>
                 </div>`;
 
           if (comment.replies) {
@@ -441,36 +442,101 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
       let comments = (packageObj.replies) ? "<h2>Обсуждение</h2>" + expand(packageObj.replies) : ""
       comments = comments.replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string) => [p1, ` rel="nofollow" `, p2, p3, p4].join(''))
 
-
       // console.log(packageObj.selftext.replace(/\[(.{2,128})\]\s\((.*)\)/, (...g) => `[${g[1]}] (${()=>g[2].replace(/\s+/g, '')})`))
       console.log(packageObj.selftext.match(/\[(.{2,128})\]\s\((.*)\)/g))
-      let postText = packageObj.body ? `<p>${packageObj.body}</p>` :
-        markdowner.makeHtml(
-          packageObj.selftext
-            .replace('\n', '  ')
-            .replace(/\*\*\s/g, '**')
-            .replace(/\s\*\*/g, '**')
-            //.replace(/\*\s/g, '*')
-            //.replace(/\s\*/g, '*')
-            .replace(/__\s/g, '__')
-            .replace(/\s__/g, '__')
-            .replace(/\[(.{2,128})\]\s\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
-            .replace(/\[(.{2,128})\]\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
-        )
-          .replace(/&nbsp;/g, '  ')
-          .replace(/\&amp\;\s\#\sX200B\;/g, '  ')
-          .replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string) => [p1, ` rel="nofollow" `, p2, p3, p4].join(''))
+      let postText
+      if (packageObj.body) {
+        postText = packageObj.body
+      } else if (packageObj.selftext && packageObj.selftext.length > 0) {
+        postText = mdToHtml(packageObj.selftext)
+      } else if (packageObj.url) {
+        // Парсим imgur
+        regexImgur = /imgur.com\//gm
+        regexGfycat = /gfycat.com\//gm
+        regexYoutube = /youtube.com\//gm
+        regexYoutu_be = /youtu.be\//gm
+        regexTwitter = /twitter.com\//gm
+        regexRedd_it = /.redd.it\//gm
+        regexReddit = /reddit.com\//gm
+
+        if (regexImgur.test(packageObj.url)) {
+          regexDataID = /(imgur.com\/)(\w+)(\.)/gm
+          dataID = regexDataID.exec(packageObj.url)[2]
+          // console.log(dataID)
+          postText = `<blockquote class="imgur-embed-pub" lang="${lang}" data-id="${dataID}">
+          <a href="${packageObj.url}">${packageObj.title}</a>
+          </blockquote>
+          <script async src="http://s.imgur.com/min/embed.js" charset="utf-8"></script>`
+
+          // gfycat.com/
+        } else if (regexGfycat.test(packageObj.url)) {
+          regex = /(gfycat.com\/)(\w+)/gm
+          //console.log(regex.exec(packageObj.url))
+          url = packageObj.url.replace(regex, `$1ifr\/$2`);
+
+          postText = `<div style='position:relative;padding-bottom:calc(100% / 1.85)'>
+          <iframe src='${url}' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen>
+          </iframe>
+          </div>`
+
+          // youtube
+        } else if (regexYoutube.test(packageObj.url)) {
+          regex = /(youtube.com\/)(\w+)/gm
+          console.log(regex.exec(packageObj.url))
+          url = packageObj.url.replace(regex, `$1embed\/$2`);
+          postText = `<iframe width="616" height="380" src="${url}?cc_load_policy=1&cc_lang_pref=${lang}"></iframe>`;
+
+          // youtu.be
+        } else if (regexYoutu_be.test(packageObj.url)) {
+          regex = /(youtu.be\/)(\w+)/gm
+          //console.log(regex.exec(packageObj.url))
+          url = packageObj.url.replace(regex, `youtube.com/embed\/$2`);
+          postText = `<iframe width="616" height="380" src="${url}?cc_load_policy=1&cc_lang_pref=${lang}"></iframe>`;
+
+          // redd.it
+        } else if (regexRedd_it.test(packageObj.url)) {
+          regex = /(redd.it\/)(\w+)/gm
+          console.log(regex.exec(packageObj.url))
+          postText = `<blockquote class="reddit-card" ><a href="${packageObj.url}"></blockquote>
+          <script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>`;
+
+          // reddit.com
+        } else if (regexReddit.test(packageObj.url)) {
+          postText = `<blockquote class="reddit-card" ><a href="${packageObj.url}"></blockquote>
+          <script async src="//embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>`;
+
+          // twitter
+        } else if (regexTwitter.test(packageObj.url)) {
+          postText = `<blockquote class="twitter-tweet" data-lang="${lang}"><p lang="${lang}" dir="ltr">
+          <a href="${packageObj.url}">${packageObj.title}</a>
+          </blockquote> 
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`
+
+
+        } else if (["png", "jpg", "gif"].indexOf(packageObj.url.split(".")[packageObj.url.split(".").length - 1]) > -1) {
+
+          postText = ` <div class = "postImg" >
+            <a href = "${packageObj.url}" target = "_blank" >
+            <div ><img alt = "${packageObj.subreddit_loc} – ${packageObj.title}"
+          src = "${packageObj.url}" >
+            </div> </a> </div>`;
+
+        } else {
+          postText = `<a href="${packageObj.url}">${packageObj.url}</a>`
+        }
+      }
+      // postText = packageObj.body ? `<p>${packageObj.body}</p>` : mdToHtml( packageObj.selftext )
 
       res.render("post", {
         /*  title: packageObj.subreddit.display_name , 
       subr: packageObj.subreddit.display_name ,  */
-        title: `${subr_lang} – ${packageObj.title.substr(0, 65 - subr_lang.length)} 💡`,
+        title: `${subr_lang} – ${packageObj.title.substr(0, 65-subr_lang.length)} 💡`,
         keywords: `${subr_lang}, идея, контент, материал, для, написания, статья, журнал, журналистика, газета, дзен, блог`,
         subr: `<a href="/r/${packageObj.subreddit.display_name}">${subr_lang}</a>`,
-        subrEmoji: emojiFromText(req.params.subreddit, true).match.emoji.char,
+        subrEmoji: getEmoji(req.params.subreddit),
         postHeader: packageObj.title,
-        description: packageObj.title + " " + slogan,
-        postImg: postImg,
+        description: packageObj.postDescription ? packageObj.postDescription + " " + slogan : packageObj.title + " " + slogan,
+        // postImg: postImg,
         postText: postText,
         soc: yandexBar,
 
@@ -489,5 +555,24 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
       console.error(err);
     });
 });
+
+let mdToHtml = (mdText) => {
+  return markdowner.makeHtml(
+      mdText
+      .replace('\n', '  ')
+      .replace(/\*\*\s/g, '**')
+      .replace(/\s\*\*/g, '**')
+      //.replace(/\*\s/g, '*')
+      //.replace(/\s\*/g, '*')
+      .replace(/__\s/g, '__')
+      .replace(/\s__/g, '__')
+      .replace(/\[(.{2,128})\]\s\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
+      .replace(/\[(.{2,128})\]\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
+    )
+    .replace(/&nbsp;/g, '  ')
+    .replace(/\&amp\;\s\#\sX200B\;/g, '  ')
+    .replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string) => [p1, ` rel="nofollow" `, p2, p3, p4].join(''))
+
+}
 
 module.exports = router;
