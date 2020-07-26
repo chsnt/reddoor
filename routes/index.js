@@ -17,7 +17,7 @@ const router = express.Router();
 moment.locale("ru");
 
 const showdown = require('showdown'),
-  markdowner = new showdown.Converter()
+markdowner = new showdown.Converter()
 markdowner.setOption('simplifiedAutoLink', 'true');
 markdowner.setOption('metadata', 'true');
 markdowner.setOption('parseImgDimensions', 'true');
