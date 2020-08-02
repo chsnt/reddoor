@@ -357,7 +357,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
   //
   // Объявляю здесь т.к. язык м.б. переменным
 
-  fse.readJson(`../data/boards-ru/${req.params.subreddit}/${req.params.id}.json`)
+  fse.readJson(`./data/boards-ru/${req.params.subreddit}/${req.params.id}.json`)
     // fs.readJson(`./data/boards-ru/${req.params.subreddit}/${req.params.id}.json`)
     .then(packageObj => {
       //console.dir(JSON.stringify(packageObj.replies[0].body_html.substr(512).replace(/<\/\s/g, '</'))) // => 0.1.3
