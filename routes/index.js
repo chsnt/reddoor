@@ -17,7 +17,7 @@ const lang = 'ru'
 moment.locale(lang);
 
 const showdown = require('showdown'),
-markdowner = new showdown.Converter()
+  markdowner = new showdown.Converter()
 markdowner.setOption('simplifiedAutoLink', 'true');
 markdowner.setOption('metadata', 'true');
 markdowner.setOption('parseImgDimensions', 'true');
@@ -39,8 +39,8 @@ const apxub = '<u> APXUB </u>'
 const email = 'mail@apxub.com'
 const yandexBar = `<div class="ya-share2" data-services="collections,vkontakte,facebook,odnoklassniki,moimir,whatsapp,telegram" data-limit="3"></div>`
 const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
-<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
-    <label class="onoffswitch-label" for="myonoffswitch" onclick="if (!window.__cfRLUnblockHandlers) return false; toggleDarkTheme();"></label>
+<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onchange="toggleDarkTheme();">
+    <label class="onoffswitch-label" for="myonoffswitch">Ночной режим</label>
     </div>`
 /* const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onchange="toggleDarkTheme();">
@@ -371,7 +371,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
             html += `<div id="${comment.id}" style="margin-left: ${40 +
               20 * realDepth}px;" class="${
               realDepth % 2 === 0 ? "gray" : "lightgray"
-            }"><hr>
+              }"><hr>
                   `;
           } else {
             html += `<br><div id="${comment.id}"><hr>
@@ -390,9 +390,14 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
             mdToHtml(comment.body)
 
           html += `${commentToHtml}
+                  <button class="answer" onclick="goDown();">	
+                    Ответить	            
+                  </button>
                   <div class="comment_info"> 
                     <div class="score">
-                     <a>⇧</a> <a> ${comment.ups} </a> <a>⇩</a>
+                     <a class="scoreUp" onclick="scoreUp(this);">⇧</a>
+                     <a class="dispScore"> ${comment.ups} </a>
+                     <a class="scoreDown" onclick="scoreDown(this);">⇩</a>
                     </div>
                     <div class="author">
                       <span> ${comment.author} </span>
@@ -530,7 +535,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
       res.render("post", {
         /*  title: packageObj.subreddit.display_name , 
       subr: packageObj.subreddit.display_name ,  */
-        title: `${subr_lang} – ${packageObj.title.substr(0, 65-subr_lang.length)} 💡`,
+        title: `${subr_lang} – ${packageObj.title.substr(0, 65 - subr_lang.length)} 💡`,
         keywords: `${subr_lang}, идея, контент, материал, для, написания, статья, журнал, журналистика, газета, дзен, блог`,
         subr: `<a href="/r/${packageObj.subreddit.display_name}">${subr_lang}</a>`,
         subrEmoji: getEmoji(req.params.subreddit),
@@ -558,7 +563,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
 
 let mdToHtml = (mdText) => {
   return markdowner.makeHtml(
-      mdText
+    mdText
       .replace('\n', '  ')
       .replace(/\*\*\s/g, '**')
       .replace(/\s\*\*/g, '**')
@@ -568,7 +573,7 @@ let mdToHtml = (mdText) => {
       .replace(/\s__/g, '__')
       .replace(/\[(.{2,128})\]\s\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
       .replace(/\[(.{2,128})\]\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
-    )
+  )
     .replace(/&nbsp;/g, '  ')
     .replace(/\&amp\;\s\#\sX200B\;/g, '  ')
     .replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string) => [p1, ` rel="nofollow" `, p2, p3, p4].join(''))

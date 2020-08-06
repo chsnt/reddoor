@@ -194,14 +194,14 @@ a {
 }
 
 .lightgray {
-    background: rgb(250, 250, 250);
+    background: rgb(251, 251, 251);
     padding-left: 20px;
     padding-right: 10px;
     border-radius: 5px;
 }
 
 .gray {
-    background: rgb(241, 241, 241);
+    background: rgb(249, 249, 249);
     padding-left: 20px;
     padding-right: 10px;
     border-radius: 5px;
@@ -389,9 +389,9 @@ pre, code {
     white-space: pre-wrap;
 }
 
-iframe {
-    display: block;
-    margin: 0 auto;
+.postText iframe {
+    display: block !important;
+    margin: 0 auto !important;
 }
 
 .dark-theme {
@@ -448,9 +448,9 @@ iframe {
     .board a {
         line-height: 0.9em;
     }
-    iframe {
-        width: 500;
-        height: 310;
+    .postText iframe {
+        width: 500px !important;
+        height: 310px !important;
     }
     .arrow {
         right: 0.5%;
@@ -464,9 +464,9 @@ iframe {
     .comments, .post, .posting, .post_info {
         width: 90%;
     }
-    iframe {
-        width: 400;
-        height: 246
+    .postText iframe {
+        width: 400px !important;
+        height: 246px !important;
     }
 }
 
@@ -474,9 +474,9 @@ iframe {
     .author {
         display: block;
     }
-    iframe {
-        width: 300;
-        height: 185;
+    .postText iframe {
+        width: 300px !important;
+        height: 185px !important;
     }
 }
 
@@ -511,8 +511,8 @@ iframe {
         font-size: 1.5em;
         padding: 0 5px 0 0;
     }
-    iframe {
-        width: 240;
-        height: 170;
+    .postText iframe {
+        width: 240px !important;
+        height: 170px !important;
     }
 }
