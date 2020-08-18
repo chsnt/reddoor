@@ -389,23 +389,30 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
             comment.body_html :
             mdToHtml(comment.body)
 
-          html += `${commentToHtml}
-                  <button class="answer" onclick="goDown();">	
-                    Ответить	            
-                  </button>
-                  <div class="comment_info"> 
-                    <div class="score">
-                     <a class="scoreUp" onclick="scoreUp(this);">⇧</a>
-                     <a class="dispScore"> ${comment.ups} </a>
-                     <a class="scoreDown" onclick="scoreDown(this);">⇩</a>
-                    </div>
+          html += ` <div class="comment_info"> 
+                    
                     <div class="author">
                       <span> ${comment.author} </span>
                     </div>
                     <div class="datetime">
                       <span> ${moment(utcString).format("lll")} </span>
                     </div>
-                  </div>
+                    </div>
+                    <div>
+                    ${commentToHtml}
+                    <div class="comment_info_bottom">
+                    <div class="score">
+                     <a class="scoreUp" onclick="scoreUp(this);">⇧</a>
+                     <a class="dispScore"> ${comment.ups} </a>
+                     <a class="scoreDown" onclick="scoreDown(this);">⇩</a>
+                    </div>
+                    <button class="answer" onclick="goDown();">	
+                      Ответить	            
+                    </button>
+                    </div>
+                    
+                    </div>                 
+                                    
                 </div>`;
 
           if (comment.replies) {

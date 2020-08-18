@@ -226,7 +226,6 @@ a {
 .post_info {
     padding-top: 20px;
     padding-bottom: 20px;
-    width: 75%;
 }
 
 .social {
@@ -255,6 +254,7 @@ a {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.85);
     margin-left: auto;
+    font-weight: normal;
 }
 
 .content .md a {
@@ -326,10 +326,6 @@ footer {
     justify-content: center;
 }
 
-.author {
-    display: flex;
-    width: 50%;
-}
 
 .author .social {
     margin: 0 auto;
@@ -362,19 +358,23 @@ footer {
 .answer {
     width: 80px;
     height: 30px;
-    border: 2px solid #f68e56;
-    border-radius: 5px;
-    float: right;
+    border: 1px solid #f68e56;
+    border-radius: 5px;    
     padding: 5px;
-    margin-top: 5px;
+    margin-right: 5px;
 }
 
-.answer:hover {
+.post .answer {
+    float: right;
+}
+
+.answer:hover, .arrow:hover {
     background-color: rgba(255, 96, 26, 0.3);
+    border-width: 2px;
 }
 
 .lightgray .answer, .lightgray .datetime, .gray .answer, .gray .datetime {
-    margin-right: -10px;
+    margin-right: -5px;
 }
 
 .lightgray {
@@ -403,7 +403,14 @@ pre, code {
     position: fixed;
     bottom: 75px;
     right: 5%;
-    font-size: 30px;
+    font-size: 35px;
+    padding: 5px;
+    padding-top: 8px;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #f68e56;
+    border-radius: 5px;
+    background: rgb(249, 249, 249);
 }
 
 .blockedUp .scoreUp, .blockedUp .dispScore, .blockedDown .scoreDown, .blockedDown .dispScore {
@@ -415,8 +422,20 @@ pre, code {
     pointer-events: none;
 }
 
+.comment_info_bottom {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    font-weight: bold;
+}
+
+.comment_info_bottom .score {
+    width: 100px;
+    padding-top: 5px;
+}
+
 @media screen and (max-width: 1200px) {
-    .comments, .post, .posting, .post_info {
+    .comments, .post, .posting {        
         width: 70%;
     }
     .content {
@@ -428,7 +447,7 @@ pre, code {
 }
 
 @media screen and (max-width: 1000px) {
-    .comments, .post, .posting, .post_info {
+    .comments, .post, .posting {
         width: 80%;
     }
     .head-title h1 {
@@ -458,10 +477,7 @@ pre, code {
 }
 
 @media screen and (max-width: 768px) {
-    .comment_info .datetime {
-        display: none;
-    }
-    .comments, .post, .posting, .post_info {
+    .comments, .post, .posting {        
         width: 90%;
     }
     .postText iframe {
@@ -470,13 +486,19 @@ pre, code {
     }
 }
 
-@media screen and (max-width: 600px) {
-    .author {
-        display: block;
-    }
+@media screen and (max-width: 600px) {    
     .postText iframe {
         width: 300px !important;
         height: 185px !important;
+    }
+    .post_info {
+        /* display: flex; */
+        flex-direction: column;
+        padding-left: 0;
+        flex-wrap: wrap;
+    }
+    .post_info .datetime {
+        margin-left: 0;
     }
 }
 
@@ -487,10 +509,10 @@ pre, code {
     .head-title {
         font-size: 12px;
     }
-    .post_info, .comment_info {
-        display: flex;
-        flex-direction: column;
+    .comment_info {
+        flex-direction: row;
         padding-left: 0;
+        flex-wrap: wrap;
     }
     .post, .comments {
         padding: 10px;
@@ -500,6 +522,9 @@ pre, code {
     }
     .arrow {
         font-size: 20px;
+        width: 22px;
+        height: 22px;
+        padding: 3px;
     }
 }
 

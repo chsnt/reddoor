@@ -19,20 +19,23 @@ function sendPost() {
     let currentDate = new Date().toLocaleString("ru", dateOptions);
     let newComment = document.createElement('div');
 
-    newComment.innerHTML = `<p>${message.replace(/(<([^>]+)>)/ig, "")}</p>
-    <button class="answer" onclick="goDown();">
-        Ответить
-    </button>
+    newComment.innerHTML = `<hr>
     <div class="comment_info">
-        <div class="score">
-          <a class="scoreUp" onclick="scoreUp(this);" rel="nofollow" >⇧</a> <a class="dispScore" rel="nofollow">0</a> <a class="scoreDown" onclick="scoreDown(this);" rel="nofollow" >⇩</a>            
-        </div>
         <div class="author">
             <span> ${name.replace(/(<([^>]+)>)/ig, "")} </span>
         </div>
         <div class="datetime">
             <span> ${currentDate} </span>
         </div>
+    </div>
+    <p>${message.replace(/(<([^>]+)>)/ig, "")}</p>    
+    <div class="comment_info_bottom">
+        <div class="score">
+          <a class="scoreUp" onclick="scoreUp(this);" rel="nofollow" >⇧</a> <a class="dispScore" rel="nofollow">0</a> <a class="scoreDown" onclick="scoreDown(this);" rel="nofollow" >⇩</a>
+        </div> 
+        <button class="answer" onclick="goDown();">
+        Ответить
+    </button>       
     </div> `;
     comments.appendChild(newComment);
 }
