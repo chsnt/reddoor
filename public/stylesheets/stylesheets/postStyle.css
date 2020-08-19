@@ -326,7 +326,6 @@ footer {
     justify-content: center;
 }
 
-
 .author .social {
     margin: 0 auto;
 }
@@ -359,7 +358,7 @@ footer {
     width: 80px;
     height: 30px;
     border: 1px solid #f68e56;
-    border-radius: 5px;    
+    border-radius: 5px;
     padding: 5px;
     margin-right: 5px;
 }
@@ -394,11 +393,6 @@ pre, code {
     margin: 0 auto !important;
 }
 
-.dark-theme {
-    color: #f2f2f2;
-    background-color: #17161a;
-}
-
 .arrow {
     position: fixed;
     bottom: 75px;
@@ -425,7 +419,7 @@ pre, code {
 .comment_info_bottom {
     display: flex;
     flex-direction: row;
-    height: 30px;
+    height: 35px;
     font-weight: bold;
 }
 
@@ -434,8 +428,86 @@ pre, code {
     padding-top: 5px;
 }
 
+.checkbox {
+    opacity: 0;
+    position: absolute;
+}
+
+.label {
+    background-color: #111;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+    height: 26px;
+    width: 50px;
+    transform: scale(1.3);
+}
+
+.label .ball {
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 20px;
+    width: 20px;
+    transform: translateX(0px);
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked+.label .ball {
+    transform: translateX(24px);
+}
+
+.fa-moon {
+    color: #f1c40f;
+}
+
+.fa-sun {
+    color: #f39c12;
+}
+
+.onoffswitch {
+    margin-top: 15px;
+}
+
+.onoffswitch label {
+    border: 1px solid white;
+}
+
+.toggleDarkTheme {
+    display: flex;
+    justify-content: center;
+}
+
+.dark-theme {
+    color: #f2f2f2;
+    background-color: #0d1a27;
+}
+
+.dark-theme .lightgray {
+    background: #122231;
+}
+
+.dark-theme .gray {
+    background: #122231;
+}
+
+.dark-theme .arrow {
+    color: black;
+}
+
+.dark-theme .author, .dark-theme .datetime {
+    color: white;
+}
+
 @media screen and (max-width: 1200px) {
-    .comments, .post, .posting {        
+    .comments, .post, .posting {
         width: 70%;
     }
     .content {
@@ -477,7 +549,7 @@ pre, code {
 }
 
 @media screen and (max-width: 768px) {
-    .comments, .post, .posting {        
+    .comments, .post, .posting {
         width: 90%;
     }
     .postText iframe {
@@ -486,7 +558,7 @@ pre, code {
     }
 }
 
-@media screen and (max-width: 600px) {    
+@media screen and (max-width: 600px) {
     .postText iframe {
         width: 300px !important;
         height: 185px !important;

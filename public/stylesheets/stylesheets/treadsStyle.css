@@ -33,10 +33,6 @@ body {
     display: flex;
 }
 
-/* .head-title{
-  background-color: rgb(131, 72, 41);
-} */
-
 .head-board {
     color: #f68e56;
     border-color: white;
@@ -48,7 +44,6 @@ body {
 
 .head-board a {
     text-decoration: none;
-    /* Убирает подчеркивание для ссылок */
     color: rgba(255, 255, 255, 0.85);
 }
 
@@ -100,21 +95,16 @@ body {
     color: rgba(255, 255, 255, 0.85);
     text-align: left;
     display: flex;
-    /* flex added*/
-    /* float: left; */
     font-size: 2.36em;
-    /* font-weight: bold; */
 }
 
 .emo {
-    /* margins & icons */
     margin: 10px 0;
     margin-left: 20px;
     min-width: 55px;
 }
 
 .board {
-    /* margins */
     margin: 10px 0;
 }
 
@@ -131,7 +121,6 @@ body {
 .postImg {
     display: flex;
     width: 46vw;
-    /*make container smaller*/
     justify-content: center;
 }
 
@@ -151,7 +140,6 @@ body {
 }
 
 .right-block {
-    /*margins & style*/
     margin-right: 55px;
     margin-top: 10px;
     padding-left: 5px;
@@ -255,9 +243,7 @@ body {
 
 .content a:hover {
     color: rgba(255, 96, 26, 0.85);
-    /* Цвет ссылки при наведении на нее курсора мыши */
     text-decoration: underline;
-    /* Добавляем подчеркивание */
 }
 
 .line {
@@ -273,19 +259,16 @@ body {
 }
 
 blockquote {
-    /*margins*/
     border-left: 4px solid lightgray;
     margin-left: 10px;
     padding-left: 10px;
 }
 
 .similar {
-    /*gray line*/
     border-left: 3px solid lightgray;
 }
 
 .similar li {
-    /*margins between li*/
     margin-top: 10px;
 }
 
@@ -413,6 +396,84 @@ li.active {
     .board a {
         line-height: 0.9em;
     }
+}
+
+.checkbox {
+    opacity: 0;
+    position: absolute;
+}
+
+.label {
+    background-color: #111;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+    height: 26px;
+    width: 50px;
+    transform: scale(1.3);
+}
+
+.label .ball {
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 20px;
+    width: 20px;
+    transform: translateX(0px);
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked+.label .ball {
+    transform: translateX(24px);
+}
+
+.fa-moon {
+    color: #f1c40f;
+}
+
+.fa-sun {
+    color: #f39c12;
+}
+
+.onoffswitch {
+    margin-top: 15px;
+}
+
+.onoffswitch label {
+    border: 1px solid white;
+}
+
+.toggleDarkTheme {
+    display: flex;
+    justify-content: center;
+}
+
+.dark-theme {
+    color: #f2f2f2;
+    background-color: #0d1a27;
+}
+
+.dark-theme .lightgray {
+    background: #122231;
+}
+
+.dark-theme .gray {
+    background: #122231;
+}
+
+.dark-theme .arrow {
+    color: black;
+}
+
+.dark-theme .author, .dark-theme .datetime {
+    color: white;
 }
 
 @media screen and (max-width: 768px) {
