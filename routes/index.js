@@ -17,7 +17,7 @@ const lang = 'ru'
 moment.locale(lang);
 
 const showdown = require('showdown'),
-markdowner = new showdown.Converter()
+  markdowner = new showdown.Converter()
 markdowner.setOption('simplifiedAutoLink', 'true');
 markdowner.setOption('metadata', 'true');
 markdowner.setOption('parseImgDimensions', 'true');
@@ -39,9 +39,18 @@ const apxub = '<u> APXUB </u>'
 const email = 'mail@apxub.com'
 const yandexBar = `<div class="ya-share2" data-services="collections,vkontakte,facebook,odnoklassniki,moimir,whatsapp,telegram" data-limit="3"></div>`
 const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
-<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
-    <label class="onoffswitch-label" for="myonoffswitch" onclick="if (!window.__cfRLUnblockHandlers) return false; toggleDarkTheme();"></label>
-    </div>`
+	<input type="checkbox" onchange="toggleDarkTheme();" class="checkbox" id="chk" />
+	<label class="label" for="chk">
+		<i class="fas fa-moon"></i>
+		<i class="fas fa-sun"></i>
+		<div class="ball"></div>
+	</label>
+</div>`;
+
+/* const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
+<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onchange="toggleDarkTheme();">
+    <label class="onoffswitch-label" for="myonoffswitch">Ночной режим</label>
+    </div>` */
 /* const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" onchange="toggleDarkTheme();">
 <label class="onoffswitch-label" for="myonoffswitch">Ночной режим</label>
@@ -102,7 +111,7 @@ router.get("/", async function (req, res, next) {
     boards: groupsToHTML(groupsListEnRu),
     apxub: apxub,
     email: 'mailto:' + email,
-
+    toggleDarkTheme: toggleDarkTheme,
   })
 
 })
@@ -135,6 +144,7 @@ router.get("/catalog/:group", async function (req, res, next) {
     title: groupName.ru + ' | APXUB',
     boards: boardsToHTML(boardsList),
     apxub: apxub,
+    toggleDarkTheme: toggleDarkTheme,
     email: 'mailto:' + email
   })
 
@@ -334,6 +344,7 @@ router.get("/r/:subreddit", async function (req, res, next) {
     treads: (lastPage !== 0) ? treadsToHTML(catalogIndex[subreddit], page, limit) : '',
     apxub: apxub,
     email: 'mailto:' + email,
+    toggleDarkTheme: toggleDarkTheme,
     pages: paginator(page, lastPage)
   })
 })
@@ -371,7 +382,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
             html += `<div id="${comment.id}" style="margin-left: ${40 +
               20 * realDepth}px;" class="${
               realDepth % 2 === 0 ? "gray" : "lightgray"
-            }"><hr>
+              }"><hr>
                   `;
           } else {
             html += `<br><div id="${comment.id}"><hr>
@@ -389,18 +400,30 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
             comment.body_html :
             mdToHtml(comment.body)
 
-          html += `${commentToHtml}
-                  <div class="comment_info"> 
-                    <div class="score">
-                     <a>⇧</a> <a> ${comment.ups} </a> <a>⇩</a>
-                    </div>
+          html += ` <div class="comment_info"> 
+                    
                     <div class="author">
                       <span> ${comment.author} </span>
                     </div>
                     <div class="datetime">
                       <span> ${moment(utcString).format("lll")} </span>
                     </div>
-                  </div>
+                    </div>
+                    <div>
+                    ${commentToHtml}
+                    <div class="comment_info_bottom">
+                    <div class="score">
+                     <a class="scoreUp" onclick="scoreUp(this);">⇧</a>
+                     <a class="dispScore"> ${comment.ups} </a>
+                     <a class="scoreDown" onclick="scoreDown(this);">⇩</a>
+                    </div>
+                    <button class="answer" onclick="goDown();">	
+                      Ответить	            
+                    </button>
+                    </div>
+                    
+                    </div>                 
+                                    
                 </div>`;
 
           if (comment.replies) {
@@ -530,7 +553,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
       res.render("post", {
         /*  title: packageObj.subreddit.display_name , 
       subr: packageObj.subreddit.display_name ,  */
-        title: `${subr_lang} – ${packageObj.title.substr(0, 65-subr_lang.length)} 💡`,
+        title: `${subr_lang} – ${packageObj.title.substr(0, 65 - subr_lang.length)} 💡`,
         keywords: `${subr_lang}, идея, контент, материал, для, написания, статья, журнал, журналистика, газета, дзен, блог`,
         subr: `<a href="/r/${packageObj.subreddit.display_name}">${subr_lang}</a>`,
         subrEmoji: getEmoji(req.params.subreddit),
@@ -548,7 +571,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
         expand: comments,
         apxub: apxub,
         email: 'mailto:' + email,
-        toggleDarkTheme: toggleDarkTheme,
+        toggleDarkTheme: toggleDarkTheme
       });
     })
     .catch(err => {
@@ -558,7 +581,7 @@ router.get("/r/:subreddit/:id", async function (req, res, next) {
 
 let mdToHtml = (mdText) => {
   return markdowner.makeHtml(
-      mdText
+    mdText
       .replace('\n', '  ')
       .replace(/\*\*\s/g, '**')
       .replace(/\s\*\*/g, '**')
@@ -568,7 +591,7 @@ let mdToHtml = (mdText) => {
       .replace(/\s__/g, '__')
       .replace(/\[(.{2,128})\]\s\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
       .replace(/\[(.{2,128})\]\((.*?)\)/g, (...g) => `[${g[1]}] (${g[2].replace(/\s+/g, '')})`)
-    )
+  )
     .replace(/&nbsp;/g, '  ')
     .replace(/\&amp\;\s\#\sX200B\;/g, '  ')
     .replace(/(<a[^>]*)(>)([^<]+)(<\/a>)/g, (match, p1, p2, p3, p4, offset, string) => [p1, ` rel="nofollow" `, p2, p3, p4].join(''))

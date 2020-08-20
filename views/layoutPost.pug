@@ -3,6 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/stylesheets/postStyle.css')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.0.13/css/all.css')
     link(rel='shortcut icon', href='/favicon.png', type='image/png')
     <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
     <script src='/scripts/post.js'></script>
@@ -28,11 +29,11 @@ html
                 span #{subrEmoji} 
               div.board !{subr}
         block h
+        .toggleDarkTheme !{toggleDarkTheme}
 
       block content
-      .arrow(onclick="goUp();") ⬆️
+      .arrow(onclick="goUp();") ⮭
   footer
-    .footer-border
-      .toggleDarkTheme !{toggleDarkTheme}
+    .footer-border      
       .email
         a(href=email) ✉️
