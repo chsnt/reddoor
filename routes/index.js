@@ -40,7 +40,7 @@ const email = 'mail@apxub.com'
 const yandexBar = `<div class="ya-share2" data-services="collections,vkontakte,facebook,odnoklassniki,moimir,whatsapp,telegram" data-limit="3"></div>`
 const toggleDarkTheme = `<div class="onoffswitch" style="display: inline-block;vertical-align: text-bottom;">
 	<input type="checkbox" onchange="toggleDarkTheme();" class="checkbox" id="chk" />
-	<label class="label" for="chk">
+	<label class="label-switch" for="chk">
 		<i class="fas fa-moon"></i>
 		<i class="fas fa-sun"></i>
 		<div class="ball"></div>
